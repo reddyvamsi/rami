@@ -1,0 +1,13 @@
+<div class="search w-50 mt-5">
+    <input type="text" class="form-control" [(ngModel)]="searchtext" (keyup)="filterdata()"  placeholder="Search By Products Name">
+    <!-- <button type="button" class="btn btn-primary">Search</button> -->
+</div>
+<div class="produt-list">
+    <ng-container *ngFor="let p of filteredproducts">
+        <app-product-card [product]="p"></app-product-card>
+    </ng-container>
+</div>
+
+<div *ngIf="allproducts.length>0 && filteredproducts.length==0">
+    <P>No products found</P>
+</div>
