@@ -1,0 +1,87 @@
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm)">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">create employe</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="fullname ">Full Name</label>
+        <input
+          type="text"
+          [(ngModel)]="fullname"
+          name="fullname"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="text"
+          [(ngModel)]="email"
+          name="email"
+          class="form-control"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="form-control">
+          <label class="radio-inline"
+            ><input
+              type="radio"
+              name="gender"
+              [(ngModel)]="gender"
+              value="male"
+            />Male</label
+          >
+          <label class="radio-inline"
+            ><input
+              type="radio"
+              name="gender"
+              [(ngModel)]="gender"
+              value="female"
+            />Female</label
+          >
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="form-control">
+          <label class="checkbox-inline">
+            <input
+              type="checkbox"
+              name="isActive"
+              [(ngModel)]="isActive"
+            />IsActive
+          </label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select
+          id="department"
+          name="department"
+          class="form-select"
+          [(ngModel)]="department" 
+        >
+          <option *ngFor="let dep of Department" [value]="dep.id">{{dep.name}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input
+          type="text"
+          id="dateOfBirth"
+          [(ngModel)]="dateOfBirth"
+          name="dateOfBirth"
+          bsDatepicker
+          class="form-control"
+        />
+      </div>
+    </div>
+    <div class="panel-footer">
+      <button class="btn btn-primary">Save</button>
+    </div>
+  </div>
+</form>
+
+{{ employeeForm.value | json }}
