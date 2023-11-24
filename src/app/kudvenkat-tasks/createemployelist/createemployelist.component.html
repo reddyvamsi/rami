@@ -1,0 +1,94 @@
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm)">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title">create employe</h3>
+    </div>
+    <div class="panel-body">
+      <div class="form-group" [class.has-error]="name.invalid && name.touched"
+       [class.has-success]="name.valid">
+        <label for="name" class="control-label">Full Name</label>
+        <input type="text" required [(ngModel)]="employee.name" name="name" class="form-control" #name="ngModel" />
+        <span class="help-block" *ngIf="name.invalid && name.touched">Please Enter Fullname</span>
+      </div>
+      <!-- local reference -->
+      <!-- <div class="form-group" [class.has-error]="fullname.invalid && fullname.touched"
+       [class.has-success]="fullname.valid">
+        <label for="name" class="control-label">Full Name</label>
+        <input type="text" required [(ngModel)]="fullname" name="fullname" class="form-control"
+          #fullnamecontrol="ngModel"/>
+        <span class="help-block" *ngIf="name.invalid && name.touched">Please Enter Fullname</span>
+      </div> -->
+      <!-- local reference -->
+      <div class="form-group" [class.has-error]="email.invalid && email.touched" 
+      [class.has-success]="email.valid" >
+        <label for="email" class="control-label">Email</label>
+        <input type="text" 
+        required
+        #email="ngModel"
+        [email]="employee.email!==''"
+         [(ngModel)]="employee.email" 
+         name="email"
+         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" 
+          class="form-control" />
+          <span class="help-block" *ngIf="email.errors?.['required'] && email.touched">Email is required</span>
+         <span class="help-block" *ngIf="email.errors?.['pattern'] && email.touched">This is not a valid Email!!!</span>
+      </div>
+
+        <!-- radio button creation -->
+      <div class="form-group" [class.has-error]="gender.invalid && gender.touched">
+        <label>Gender</label>
+        <div class="form-control">
+          <label class="radio-inline"><input type="radio" required  #gender="ngModel" name="gender" [(ngModel)]="employee.gender"
+              value="male" />Male</label>
+          <label class="radio-inline"><input type="radio"  required #gender="ngModel" name="gender" [(ngModel)]="employee.gender"
+              value="female" />Female</label>
+        </div>
+        <span class="help-block" *ngIf="gender.invalid && gender.touched">Please select gender</span>
+      </div>
+
+<!-- check button creation -->
+      <div class="form-group">
+        <div class="form-control">
+          <label class="checkbox-inline">
+            <input type="checkbox" name="isActive" [(ngModel)]="employee.isActive" />IsActive
+          </label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="department">Department</label>
+        <select id="department" name="department" class="form-select" [(ngModel)]="employee.department">
+          <option *ngFor="let dep of Department" [value]="dep.id">{{dep.name}}</option>
+        </select>
+      </div>
+      
+      <div class="row">
+        <div class="form-group col-md-4">
+          <label for="dateOfBirth">Date of Birth</label>
+          <input type="text" id="dateOfBirth" [(ngModel)]="employee.dateOfBirth" name="dateOfBirth" bsDatepicker
+            [bsConfig]="datepickerConfig" class="form-control" placement="right" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="photopath">photo path</label>
+        <input type="text" id="imagepath" [(ngModel)]="employee.imagepath"  imagepath="ngModel" name="imagepath" class="form-control" />
+      </div>
+      <div class="form-group">
+        <button type="button" class="btn btn-primary" (click)="toggleimage()">{{previewimage ? "Hide":"show"
+          }}preview</button>
+      </div>
+
+      <div class="form-group">
+        <img [src]="employee.imagepath" style="width: 200px; height: 200px;" *ngIf="previewimage">
+      </div>
+    </div>
+    <div class="panel-footer">
+      <button class="btn btn-primary" [disabled]="employeeForm.invalid">Save</button>
+    </div>
+  </div>
+</form>
+
+angular generated form model{{ employeeForm.value | json }}
+<br>
+<br>
+model binding {{employee|json}}
